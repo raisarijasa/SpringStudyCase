@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+
+    <h3>User Directory</h3>
+    <hr>
+    <!--    <a th:href="@{/employees/showFormForAdd}" class="btn btn-primary btn-sm mb-3">Add Employee</a>-->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempUser : ${users}">
+
+            <td th:text="${tempUser.fullName}"/>
+            <td th:text="${tempUser.email}"/>
+            <td id="roles" th:text="${tempUser.roleDescription}"/>
+            <td>
+                <a th:href="@{/resetPassword(email=${tempUser.email})}"
+                   class="btn btn-info btn-sm"
+                   onclick="if (!(confirm('Are you sure you want to reset password this user?'))) return false">>
+                    Reset
+                </a>
+                <a th:href="@{/profileByEmail(email=${tempUser.email})}"
+                   class="btn btn-info btn-sm">
+                    Update
+                </a>
+                <a th:href="@{/delete(userId=${tempUser.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--    <script th:inline="javascript">-->
+<!--/*<![CDATA[*/-->
+<!--var text, roleLength, i;-->
+<!--var listRole = /*[[${tempUser.roles}]]*/;-->
+<!--roleLength = listRole.length;-->
+
+<!--for (i = 0; i < listRole; i++) {-->
+<!--  text += listRole[i].role;-->
+<!--  if (roleLength > 1 && i < roleLength) {-->
+<!--    text += ", ";-->
+<!--  }-->
+<!--}-->
+
+<!--text = 'test';-->
+
+<!--document.getElementById("roles").innerHTML = text;-->
+<!-- /*]]>*/-->
+<!--</script>-->
+</body>
+</html>
+
+
+
